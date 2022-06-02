@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "355407197753",
+    "firebase_url": "https://bethel-mekane-yesus-default-rtdb.firebaseio.com",
+    "project_id": "bethel-mekane-yesus",
+    "storage_bucket": "bethel-mekane-yesus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355407197753:android:48c404a360ab3ea993ffe8",
+        "android_client_info": {
+          "package_name": "com.example.bethal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdgv7YctFVzoDW8WAF8MChnzu_OBOEbsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355407197753:android:6cced21c7980280e93ffe8",
+        "android_client_info": {
+          "package_name": "com.example.bethel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdgv7YctFVzoDW8WAF8MChnzu_OBOEbsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355407197753:android:a350301be5ec744e93ffe8",
+        "android_client_info": {
+          "package_name": "com.example.bethelmekaneyesusschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdgv7YctFVzoDW8WAF8MChnzu_OBOEbsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355407197753:android:d60c732f8a533bde93ffe8",
+        "android_client_info": {
+          "package_name": "com.example.school"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdgv7YctFVzoDW8WAF8MChnzu_OBOEbsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "355407197753-lnsbeabn6flcbje6rht0p2nhdp776qqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

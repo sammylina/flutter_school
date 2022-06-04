@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class FireAuth {
   final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -23,4 +24,13 @@ class FireAuth {
 
     return user;
   }
+}
+
+class CustomAuth {
+  Random rand = Random();
+  final _chars = 'ABCDEFGHIJKLMNOPRSTUVWXYZabcedfghijklmnopqrstuvwxyz!@123456789';
+  String generate_password() {
+    final password = String.fromCharCodes(Iterable.generate(6, (_) => _chars.codeUnitAt(rand.nextInt(_chars.length))));
+    return password;
+}
 }

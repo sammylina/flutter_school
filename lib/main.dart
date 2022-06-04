@@ -24,9 +24,6 @@ class MyApp extends StatelessWidget {
 				primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-				appBar: AppBar(
-					title: Text('school management'),	
-				),
 				body: AdminPage(),
       ),
     );

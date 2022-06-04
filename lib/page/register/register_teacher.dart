@@ -18,7 +18,7 @@ class _RegisterTeacherState extends State<RegisterTeacher> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration'),
+        title: Text('Teacher Registration'),
       ),
       body: SingleChildScrollView(
         child: MyCustomForm(),
@@ -80,7 +80,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter first name';
+                    return 'first name required';
                   }
                   return null;
                 }
@@ -93,6 +93,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                 icon: const Icon(Icons.person),
                 hintText: 'Enter middle name',
               ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'middle name required';
+                  }
+                  return null;
+                }
             ),
             TextFormField(
               onSaved: (value) {
@@ -122,12 +128,17 @@ class MyCustomFormState extends State<MyCustomForm> {
               },
               value: formData['grade'],
               hint: Text('Grade'),
-
              ),
             TextFormField(
               onSaved: (value) {
                 formData['email'] = value;
               },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'email required';
+                  }
+                  return null;
+                },
               decoration: const InputDecoration(
                 icon: const Icon(Icons.email),
                 hintText: 'Enter your email',

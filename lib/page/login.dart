@@ -27,14 +27,22 @@ class _LoginState extends State<Login> {
 				UserCredential cred = await auth.signInWithEmailAndPassword(
 					email: email,
 					password: password,
-				);	
+				);
 				user = cred.user;
+				Navigator.pushNamed(context, '/encoder');
+				print("logged in successfuly");
 			} on FirebaseAuthException catch(e) {
 				if (e.code == 'user-not-found') {
 					print("No user found ");	
 				}	else if (e.code == 'wrong-password') {
 					print('Wrong password provided');	
 				}
+				ScaffoldMessenger.of(context).showSnackBar(
+						const SnackBar(
+							content: Text("Wrong credentials"),
+							backgroundColor: Colors.redAccent,
+						)
+				);
 			}
 			
 			return user;

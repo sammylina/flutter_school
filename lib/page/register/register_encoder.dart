@@ -151,7 +151,6 @@ class _RegisterEncoderState extends State<RegisterEncoder> {
                   }
                   else if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
-                    print("------encoder------: $formData");
                     User? user = await FireAuth.registerUsingEmailPassword(email: formData['email'], password: formData['password']);
                     formData['fullName'] = "${formData['firstName']} ${formData['lastName']}";
                     try {

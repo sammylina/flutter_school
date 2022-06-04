@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 // import 'package:school/page/login.dart';
 import 'package:school/page/admin.dart';
+import 'package:school/page/login.dart';
+import 'package:school/page/encoder.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -23,8 +25,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
 				primarySwatch: Colors.blue,
       ),
+      initialRoute: '/',
+      routes: {
+        //'/': (context) => Login(),
+        '/admin': (context) => AdminPage(),
+        '/encoder': (context) => Encoder(),
+      },
       home: Scaffold(
-				body: AdminPage(),
+				body: Encoder(),
       ),
     );
   }

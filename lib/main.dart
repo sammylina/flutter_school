@@ -6,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:school/page/admin.dart';
 import 'package:school/page/login.dart';
 import 'package:school/page/encoder.dart';
+import 'package:school/page/parent.dart';
+import 'package:school/page/teacher.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
 				primarySwatch: Colors.blue,
       ),
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/encoder': (context) => Encoder(),
       },
       home: Scaffold(
-				body: Encoder(),
+				body: Parent(),
       ),
     );
   }

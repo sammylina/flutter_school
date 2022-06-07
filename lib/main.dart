@@ -8,6 +8,7 @@ import 'package:school/page/login.dart';
 import 'package:school/page/encoder.dart';
 import 'package:school/page/parent.dart';
 import 'package:school/page/teacher.dart';
+import 'package:school/page/register/main_register.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -30,12 +31,12 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        //'/': (context) => Login(),
+        '/register': (context) => Register(),
         '/admin': (context) => AdminPage(),
         '/encoder': (context) => Encoder(),
       },
       home: Scaffold(
-				body: Parent(),
+				body: Login(),
       ),
     );
   }

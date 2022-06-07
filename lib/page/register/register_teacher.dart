@@ -48,11 +48,10 @@ class MyCustomFormState extends State<MyCustomForm> {
     'email': null,
     'phone': null,
     'username': 'user name',
-    'grade': null,
     'password': null,
-    'userType': 'teacher',
+    'userType': 'parent',
     'profile_img': null,
-    'teacherId': null,
+    'childOne': null,
   };
 
   @override
@@ -174,10 +173,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ElevatedButton(
                   child: Text("Generate Password"),
                   onPressed: () {
-                    final password = String.fromCharCodes(Iterable.generate(6, (_) => _chars.codeUnitAt(rand.nextInt(_chars.length))));
-                    setState(() {
-                      formData['password'] = password;
-                    });
+                    // final password = String.fromCharCodes(Iterable.generate(6, (_) => _chars.codeUnitAt(rand.nextInt(_chars.length))));
+
                   },
                 ),
 

@@ -14,7 +14,8 @@ class _LoginState extends State<Login> {
 
 		final email_controller = TextEditingController();
 		final password_controller = TextEditingController();
-
+		List<String> items = ['teacher','encoder', 'parent','admin'];
+		String? selectedItem = 'admin';
 
 		late FocusNode focus;
 		
@@ -29,7 +30,7 @@ class _LoginState extends State<Login> {
 					password: password,
 				);
 				user = cred.user;
-				Navigator.pushNamed(context, '/encoder');
+				Navigator.pushNamed(context, '/admin');
 				print("logged in successfuly");
 			} on FirebaseAuthException catch(e) {
 				if (e.code == 'user-not-found') {
@@ -108,7 +109,7 @@ class _LoginState extends State<Login> {
 								borderRadius: BorderRadius.circular(6.0),	
 							),
 							child: Text(
-								'click me',
+								'Login',
 								style: TextStyle(
 									color: Colors.white,	
 								),
@@ -117,7 +118,7 @@ class _LoginState extends State<Login> {
 							onPressed: () async {
 								User? user = await login(email: email_controller.text, password: password_controller.text, context: context);
 								if (user == null) {
-								
+
 								} else {
 								
 								}
@@ -129,4 +130,6 @@ class _LoginState extends State<Login> {
 				),
 			); 
     }
+
+
 }

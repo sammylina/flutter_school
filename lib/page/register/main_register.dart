@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school/page/register/register_teacher.dart';
 import 'package:school/page/register/register_encoder.dart';
+import 'package:school/page/register/register_parent.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -21,7 +22,10 @@ class Register extends StatelessWidget {
             );
           }, child: const Text('Register Teacher')),
           const SizedBox(height: 8),
-          ElevatedButton(onPressed: () {}, child: Text('Register Parent')),
+          ElevatedButton(onPressed: () {
+            Navigator.push(context, 
+            MaterialPageRoute(builder: (context) => const RegisterParent()));
+          }, child: Text('Register Parent')),
           const SizedBox(height: 8),
           ElevatedButton(onPressed: () {
             Navigator.push(

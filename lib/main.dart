@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/register': (context) => Register(),
         '/admin': (context) => AdminPage(),
         '/encoder': (context) => Encoder(),
+        '/teacher': (context) => Teacher(),
+        '/parent': (context) => Parent(),
       },
       home: Scaffold(
 				body: Login(),

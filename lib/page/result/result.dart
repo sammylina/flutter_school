@@ -1,6 +1,13 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:school/page/result/for_upto_10.dart';
+import 'package:school/page/result/for_upto_6.dart';
+import 'package:school/page/result/natural_science.dart';
+
+import 'package:school/page/result/social_science.dart';
+
+import 'for_upto_kg3.dart';
 
 
 
@@ -21,15 +28,30 @@ class _ResultState extends State<Result> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 8),
-              ElevatedButton(onPressed: () {}, child: Text('For grade kg1 upto kg3')),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ForUptoKg3()));
+              }, child: Text('For grade kg1 upto kg3')),
               const SizedBox(height: 8),
-              ElevatedButton(onPressed: () {}, child: Text('For grade 1 upto 6')),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const ForUpto6()));
+              }, child: Text('For grade 1 upto 6')),
               const SizedBox(height: 8),
-               ElevatedButton(onPressed: () {}, child: Text('For grade 7 upto 10')),
+               ElevatedButton(onPressed: () {
+                 Navigator.push(context,
+                     MaterialPageRoute(builder: (context) => const ForUpto10()));
+               }, child: Text('For grade 7 upto 10')),
               const SizedBox(height: 8),
-              ElevatedButton(onPressed: () {}, child: Text('For grade 11 and 12 natural science')),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const NaturalScience()));
+              }, child: Text('For grade 11 and 12 natural science')),
               const SizedBox(height: 8),
-              ElevatedButton(onPressed: () {}, child: Text('For grade 11 and 12 social science')),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SocialScience()));
+              }, child: Text('For grade 11 and 12 social science')),
 
             ]
         )

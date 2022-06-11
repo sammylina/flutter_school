@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:school/page/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
+import 'package:school/page/common/searchpage.dart';
 import 'package:school/page/register/DataController.dart';
 import 'package:get/get.dart';
 
@@ -62,18 +63,13 @@ class _RegisterParentState extends State<RegisterParent> {
           )
         ],
       ),
-      body:  Column(
-          children: [
-            isExecuted ? SearchedData() : Container(
-              child: Text('search any course')
-            ),
-            Expanded(child: SingleChildScrollView(
-              child: ParentForm(),
-            ))
+      body:  SingleChildScrollView(
 
-          ],
-        ),
-     );
+              child: ParentForm(),
+            )
+    );
+
+     
   }
 }
 
@@ -175,6 +171,12 @@ class _ParentFormState extends State<ParentForm> {
               ),
             ),
             SizedBox(height: 12),
+            Center(
+              child: ElevatedButton(onPressed: (){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SearchPage()));
+              }, child: Text("Search student")),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

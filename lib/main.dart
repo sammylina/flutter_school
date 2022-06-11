@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/parent': (context) => Parent(),
       },
       home: Scaffold(
-				body: Login(),
+				body: AdminPage(),
       ),
     );
   }

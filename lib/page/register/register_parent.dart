@@ -85,7 +85,7 @@ class _ParentFormState extends State<ParentForm> {
   final _formKey = GlobalKey<FormState>();
   final _chars = 'ABCDEFGHIJKLMNOPRSTUVWXYZabcedfghijklmnopqrstuvwxyz!@123456789';
   Random rand = Random();
-  String? studentName = '';
+  String? studentName = 'Student Name';
   final Map<String, dynamic> parentData = {
     'firstName': null,
     'lastName': null,
@@ -93,9 +93,8 @@ class _ParentFormState extends State<ParentForm> {
     'email': null,
     'phone': null,
     'username': 'user name',
-    'grade': null,
     'password': null,
-    'userType': 'teacher',
+    'userType': 'parent',
     'profile_img': null,
     'teacherId': null,
     'childOne': null,
@@ -171,12 +170,22 @@ class _ParentFormState extends State<ParentForm> {
               ),
             ),
             SizedBox(height: 12),
-            Center(
-              child: ElevatedButton(onPressed: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const SearchPage()));
-              }, child: Text("Search student")),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                Text(
+                studentName??""
             ),
+              ElevatedButton(onPressed: () async {
+                var student =   await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const SearchPage()));
+                parentData['childOne'] = student['childOne'];
+                setState(() {
+                  studentName = student['fullName'];
+                });
+              }, child: Text("Search student")),
+      ]
+            ),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -225,12 +234,18 @@ class _ParentFormState extends State<ParentForm> {
                     )
                 );
               }
+              else if (parentData['childOne'] == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Please select a child first'), backgroundColor: Colors.redAccent),
+                );
+              }
               else if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 User? user = await FireAuth.registerUsingEmailPassword(email: parentData['email'], password: parentData['password']);
                 parentData['fullName'] = "${parentData['firstName']} ${parentData['lastName']}";
+                parentData.remove('password');
                 try {
-
+                print("full parent data: $parentData");
                   FirebaseFirestore.instance.collection('parent').add(parentData)
                       .then((doc) {
                     FirebaseFirestore.instance.collection('parent').doc(doc.id).update({'teacherId': doc.id});

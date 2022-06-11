@@ -33,7 +33,12 @@ class _SearchPageState extends State<SearchPage> {
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             title: Text(snapshotData.docs[index].data()['fullName']),
-            subtitle: Text(snapshotData.docs[index].data()['studentId']),
+            subtitle: Text(snapshotData.docs[index].data()['grade']),
+            onTap: () {
+              var studentName  = snapshotData.docs[index].data()['fullName'];
+              var studentId = snapshotData.docs[index].data()['studentId'];
+              Navigator.pop(context, {'fullName': studentName, 'childOne': studentId});
+            },
           );
         },
       );
@@ -63,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
         ],
       ),
       body:  isExecuted ? SearchedData() : Container(
-          child: Text('search any course')
+          child: Text('search any student')
       ),
 
 

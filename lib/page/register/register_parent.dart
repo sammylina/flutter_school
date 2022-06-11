@@ -7,6 +7,9 @@ import 'dart:math';
 import 'package:school/page/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
+import 'package:school/page/register/DataController.dart';
+import 'package:get/get.dart';
+
 
 class RegisterParent extends StatefulWidget {
   const RegisterParent({Key? key}) : super(key: key);
@@ -16,16 +19,61 @@ class RegisterParent extends StatefulWidget {
 }
 
 class _RegisterParentState extends State<RegisterParent> {
+
+  final TextEditingController searchController = TextEditingController();
+  var snapshotData;
+  bool isExecuted = false;
+
   @override
   Widget build(BuildContext context) {
+
+    Widget SearchedData() {
+      return ListView.builder(
+        itemCount: snapshotData.docs.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text(snapshotData.docs[index].data()['fullName']),
+            subtitle: Text(snapshotData.docs[index].data()['studentId']),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register Parent')
+        title: TextField(
+          style: TextStyle(),
+          decoration: InputDecoration(),
+          controller: searchController,
+        ),
+        actions: [
+          GetBuilder<DataController>(
+            init: DataController(),
+            builder: (val) {
+              return IconButton(icon: Icon(Icons.search), onPressed: () {
+                val.queryData(searchController.text).then((value) {
+                    snapshotData = value;
+                    setState(() {
+                      isExecuted = true;
+                    });
+                });
+              });
+            },
+          )
+        ],
       ),
-      body: SingleChildScrollView(
-        child: ParentForm(),
-      )
-    );
+      body:  Column(
+          children: [
+            isExecuted ? SearchedData() : Container(
+              child: Text('search any course')
+            ),
+            Expanded(child: SingleChildScrollView(
+              child: ParentForm(),
+            ))
+
+          ],
+        ),
+     );
   }
 }
 

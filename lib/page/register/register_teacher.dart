@@ -173,8 +173,11 @@ class MyCustomFormState extends State<MyCustomForm> {
                 ElevatedButton(
                   child: Text("Generate Password"),
                   onPressed: () {
-                    // final password = String.fromCharCodes(Iterable.generate(6, (_) => _chars.codeUnitAt(rand.nextInt(_chars.length))));
-
+                    final password = CustomAuth().generate_password();
+                    print('password generated for teacher: $password');
+                    setState(() {
+                      formData['password'] = password;
+                    });
                   },
                 ),
 

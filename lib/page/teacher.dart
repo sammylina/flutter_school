@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:school/page/result/result.dart';
+import 'package:school/page/result/resultForTeacher.dart';
 
 import 'common/NavBar.dart';
+import 'common/announcement.dart';
 
 class Teacher extends StatefulWidget {
   const Teacher({Key? key}) : super(key: key);
@@ -37,8 +39,8 @@ class _TeacherState extends State<Teacher> {
           child: TabBarView(
             children: [
               Center(child: Result(),),
-              Center(child: Text("Annaounce"),),
-              Center(child: Text("Feedback"),)
+              Center(child: Announcement()),
+              Center(child: TeacherResult(),)
             ],
           ),
         ),

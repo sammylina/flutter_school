@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'common/NavBar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'common/announcement.dart';
+
 class Encoder extends StatefulWidget {
   const Encoder({Key? key}) : super(key: key);
 
@@ -20,7 +22,7 @@ class _EncoderState extends State<Encoder> {
             title: Text("Data Encoder"),
             bottom: TabBar(
              tabs: [
-              Tab(text: "Register",icon: Icon(Icons.notifications),), Tab(text: "Annaounce",icon: Icon(Icons.notifications)),
+              Tab(text: "Register",icon: Icon(Icons.notifications),), Tab(text: "Announcement",icon: Icon(Icons.notifications)),
              ],
             ),
         ),
@@ -34,7 +36,7 @@ class _EncoderState extends State<Encoder> {
           child: TabBarView(
             children: [
               Center(child: RegisterStudent(),),
-              Center(child: Text("Post"),)
+              Center(child: Announcement(),)
             ],
           ),
         ),

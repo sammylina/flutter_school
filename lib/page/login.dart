@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:school/page/auth.dart';
 
 
 class Login extends StatefulWidget {
@@ -16,13 +17,13 @@ class _LoginState extends State<Login> {
 		final email_controller = TextEditingController();
 		final password_controller = TextEditingController();
 		List<String> userTypes = ['teacher','encoder', 'parent','admin'];
-		String? selectedUserType = 'admin';
+		String selectedUserType = 'admin';
 		bool allowLogin = false;
 
 		late FocusNode focus;
 		
 
-		static Future<User?> login({required String email, required String password, required BuildContext context, routeTo}) async {
+		 Future<User?> login({required String email, required String password, required BuildContext context, routeTo}) async {
 			User? user;
 			
 			FirebaseAuth auth = FirebaseAuth.instance;
@@ -35,6 +36,15 @@ class _LoginState extends State<Login> {
 				if (user != null) {
 					print("route to value: $routeTo");
 					print("user found: $user");
+					var loggedUser;
+					FirebaseFirestore.instance.collection(selectedUserType).where('email', isEqualTo: user.email).snapshots()
+						.forEach((user) {
+							if(user == null) return;
+							loggedUser = user.docs.map((e) => e.data()).toList()[0];
+							CustomAuth.storage.write(key: selectedUserType, value: loggedUser);
+					});
+
+
 					Navigator.pushNamed(context, "/$routeTo");
 				}else {
 						ScaffoldMessenger.of(context).showSnackBar(
@@ -110,7 +120,7 @@ class _LoginState extends State<Login> {
 			  					setState(() {
 			  						selectedUserType = newValue!;
 			  					});
-			  					CollectionReference users = FirebaseFirestore.instance.collection(selectedUserType!);
+			  					CollectionReference users = FirebaseFirestore.instance.collection(selectedUserType);
 			  					QuerySnapshot allresults = await users.get();
 			  					var emails = allresults.docs.map((DocumentSnapshot res) => res['email']);
 			  					if (emails.contains(email_controller.text)) {
@@ -137,7 +147,7 @@ class _LoginState extends State<Login> {
 			  					focus.requestFocus();
 
 			  					print("selected user type: $selectedUserType");
-			  					CollectionReference users = FirebaseFirestore.instance.collection(selectedUserType!);
+			  					CollectionReference users = FirebaseFirestore.instance.collection(selectedUserType);
 			  					QuerySnapshot allresults = await users.get();
 			  					var emails = allresults.docs.map((DocumentSnapshot res) => res['email']);
 			  					if (emails.contains(email_controller.text)) {

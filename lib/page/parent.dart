@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'common/NavBar.dart';
+import 'common/announcement.dart';
 
 class Parent extends StatefulWidget {
   const Parent({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _ParentState extends State<Parent> {
           title: Text("Parent"),
           bottom: TabBar(
             tabs: [
-              Tab(text: "Annaounce",icon: Icon(Icons.notifications),), Tab(text: "Feedback",icon: Icon(Icons.notifications)), Tab(text: "Result",icon: Icon(Icons.notifications)),
+              Tab(text: "Announcement",icon: Icon(Icons.notifications),), Tab(text: "Feedback",icon: Icon(Icons.notifications)), Tab(text: "Result",icon: Icon(Icons.notifications)),
             ],
           ),
         ),
@@ -34,7 +35,7 @@ class _ParentState extends State<Parent> {
           padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
           child: TabBarView(
             children: [
-              Center(child: Text("Annaounce"),),
+              Center(child: Announcement(),),
               Center(child: Text("Feedback"),),
               Center(child: Text("Result"),)
             ],

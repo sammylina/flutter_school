@@ -40,6 +40,7 @@ dependencies:
   random_password_generator: ^0.2.1
   cloud_firestore: ^3.1.17
   shared_preferences: ^2.0.15
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school/page/common/admin_ann_post.dart';
 import 'common/NavBar.dart';
 import 'package:school/page/register/main_register.dart';
 
@@ -44,7 +45,7 @@ class _Admin_pageState extends State<AdminPage> {
         bottom: TabBar(
           tabs: [
             Tab(text: "Register",icon: Icon(Icons.notifications),),
-            Tab(text: "Announce",icon: Icon(Icons.notifications)),
+            Tab(text: "Announcement",icon: Icon(Icons.notifications)),
             Tab(text: "Delete",icon: Icon(Icons.notifications))
           ],
         ),
@@ -52,7 +53,7 @@ class _Admin_pageState extends State<AdminPage> {
       body: TabBarView(
         children: [
           Center(child: Register()),
-          Center(child: Text("FeedBack"),),
+          Center(child: AdminAnnouncement(),),
           Center(child: Text("Result"),)
         ],
       ),

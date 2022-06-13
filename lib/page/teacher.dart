@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:school/page/feedback/teacher_feedback.dart';
 import 'package:school/page/result/result.dart';
 import 'package:school/page/result/resultForTeacher.dart';
 
@@ -25,7 +26,7 @@ class _TeacherState extends State<Teacher> {
           title: Text("Teacher"),
           bottom: TabBar(
             tabs: [
-              Tab(text: "Result",icon: Icon(Icons.notifications),), Tab(text: "Annaounce",icon: Icon(Icons.notifications)), Tab(text: "Feedback",icon: Icon(Icons.notifications)),
+              Tab(text: "Result",icon: Icon(Icons.notifications),), Tab(text: "Announcement",icon: Icon(Icons.notifications)), Tab(text: "Feedback",icon: Icon(Icons.notifications)),
             ],
           ),
         ),
@@ -40,7 +41,7 @@ class _TeacherState extends State<Teacher> {
             children: [
               Center(child: Result(),),
               Center(child: Announcement()),
-              Center(child: TeacherResult(),)
+              Center(child: TeacherFeedback(),)
             ],
           ),
         ),

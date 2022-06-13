@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:school/page/feedback/parent_feedback.dart';
 
 import 'common/NavBar.dart';
 import 'common/announcement.dart';
@@ -36,7 +37,7 @@ class _ParentState extends State<Parent> {
           child: TabBarView(
             children: [
               Center(child: Announcement(),),
-              Center(child: Text("Feedback"),),
+              Center(child: ParentFeedback(),),
               Center(child: Text("Result"),)
             ],
           ),

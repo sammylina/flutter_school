@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:school/page/auth.dart';
+import 'dart:convert';
 
 
 class Login extends StatefulWidget {
@@ -41,7 +42,8 @@ class _LoginState extends State<Login> {
 						.forEach((user) {
 							if(user == null) return;
 							loggedUser = user.docs.map((e) => e.data()).toList()[0];
-							CustomAuth.storage.write(key: selectedUserType, value: loggedUser);
+							CustomAuth.storage.write(key: selectedUserType, value: json.encode(loggedUser));
+
 					});
 
 

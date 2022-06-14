@@ -15,8 +15,8 @@ class _NavBarState extends State<NavBar> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(accountName: Text("Daniel"), 
-            accountEmail: Text("danielgetachew623@gmial.com"),
+          UserAccountsDrawerHeader(accountName: Text("Zekarias"),
+            accountEmail: Text("zekics3rd@gmial.com"),
             currentAccountPicture:CircleAvatar(
               child: ClipOval(
                 child: Image.network("https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png",

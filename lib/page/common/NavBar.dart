@@ -35,11 +35,7 @@ class _NavBarState extends State<NavBar> {
             ),
 
           ),
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Favorites'),
-            onTap: () => null,
-          ),
+
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Update info'),
@@ -71,17 +67,7 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => null,
-          ),
-          ListTile(
-            leading: Icon(Icons.description),
-            title: Text('Policies'),
-            onTap: () => null,
-          ),
+
           Divider(),
           ListTile(
             title: Text('Logout'),

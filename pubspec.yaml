@@ -50,7 +50,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/EECMY.jpg"
+  image_path: "assets/icon/EECMY.png"
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

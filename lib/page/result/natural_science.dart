@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:school/page/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:school/page/common/searchpage.dart';
 
 class NaturalScience extends StatefulWidget {
   const NaturalScience({Key? key}) : super(key: key);
@@ -33,20 +34,25 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();
   }
 }
-
 class MyCustomFormState  extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
-  final accountTypes = ['KG1', 'KG2', 'KG3', '1','2','3','4','5','6','7','8','9','10','11','12',];
-  final Map<String, dynamic> formData = {
-    'Amharic': null,
-    'lastName': null,
-    'email': null,
-    'phone': null,
-    'username': 'user name',
-    'password': null,
-    'userType': 'parent',
-    'profile_img': null,
-    'childOne': null,
+  String? studentName = 'StudentName';
+  String? grade = 'Grade';
+  String? studentId = null;
+
+  final Map<String, dynamic> subjects = {
+    'Biology': null,
+    'Chemistry': null,
+    'Physics': null,
+    'Drawing': null,
+    'English': null,
+    'Civics': null,
+    'Physical_Education': null,
+    'Mathematics': null,
+    'ICT': null,
+    'Amharic':null,
+    'out_of': null,
+    'quarter': null,
   };
   @override
   Widget build(BuildContext context) {
@@ -60,47 +66,29 @@ class MyCustomFormState  extends State<MyCustomForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
 
-            DropdownButton(
-              icon: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Icon(Icons.arrow_circle_down_sharp)
-              ),
-              items: accountTypes.map((String item) {
-                return DropdownMenuItem(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  formData['grade'] = value;
-                });
-              },
-              value: formData['grade'],
-              hint: Text('Select Student Grade'),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                      "$studentName($grade)"??""
+                  ),
+                  ElevatedButton(onPressed: () async {
+                    var student =   await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const SearchPage()));
+                    studentId = student['childOne'];
+                    setState(() {
+                      studentName = student['fullName'];
+                      grade = student['grade'];
+                    });
+                  }, child: Text("Search student")),
+                ]
             ),
-
+            SizedBox(height: 20),
             TextFormField(
                 onSaved: (value) {
-                  formData['fullName'] = value;
+                  subjects['quarter'] = value;
                 },
                 decoration: const InputDecoration(
-                  icon: const Icon(Icons.person),
-                  hintText: 'Enter Student Name',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Student Name required';
-                  }
-                  return null;
-                }
-            ),
-            TextFormField(
-                onSaved: (value) {
-                  formData['Quarter'] = value;
-                },
-                decoration: const InputDecoration(
-                  icon: const Icon(Icons.person),
+                  icon: const Icon(Icons.numbers),
                   hintText: 'Enter Quarter',
                 ),
                 validator: (value) {
@@ -113,98 +101,7 @@ class MyCustomFormState  extends State<MyCustomForm> {
 
             TextFormField(
               onSaved: (value) {
-                formData['Biology'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Biology Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Chemistry'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Chemistry Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-
-            TextFormField(
-              onSaved: (value) {
-                formData['Drawing'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Technical Drawing Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['English'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'English Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Civics'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Civics Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Civics'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Civics Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Physical Education'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Physical Education Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Mathematics'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'Mathematics Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['ICT'] = value;
-              },
-              decoration: const InputDecoration(
-                icon: const Icon(Icons.school),
-                hintText: 'ICT Result',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            TextFormField(
-              onSaved: (value) {
-                formData['Amharic'] = value;
+                subjects['Amharic'] = value;
               },
               decoration: const InputDecoration(
                 icon: const Icon(Icons.school),
@@ -214,7 +111,88 @@ class MyCustomFormState  extends State<MyCustomForm> {
             ),
             TextFormField(
               onSaved: (value) {
-                formData['out of'] = value;
+                subjects['English'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'English Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+
+            TextFormField(
+              onSaved: (value) {
+                subjects['Math'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Math Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Math_Amharic'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Math Amharic Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Science'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Science Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Science_Amharic'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Science Amharic Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Music'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Music Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Sport'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Sport Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['Art'] = value;
+              },
+              decoration: const InputDecoration(
+                icon: const Icon(Icons.school),
+                hintText: 'Art Result',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextFormField(
+              onSaved: (value) {
+                subjects['out_of'] = value;
               },
               decoration: const InputDecoration(
                 icon: const Icon(Icons.school),
@@ -230,33 +208,46 @@ class MyCustomFormState  extends State<MyCustomForm> {
 
 
             Center(child: ElevatedButton(onPressed: () async {
-              if (formData['password'] == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('first generate password'),
-                      backgroundColor: Colors.redAccent,
-                    )
-                );
-              }
-              else if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                User? user = await FireAuth.registerUsingEmailPassword(email: formData['email'], password: formData['password']);
-                formData['fullName'] = "${formData['firstName']} ${formData['lastName']}";
-                try {
 
-                  FirebaseFirestore.instance.collection('teacher').add(formData)
-                      .then((doc) {
-                    FirebaseFirestore.instance.collection('teacher').doc(doc.id).update({'teacherId': doc.id});
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Registration successful'), backgroundColor: Colors.green),
-                    );
-                    Navigator.pop(context);
-                  }).onError((e, _) {print("Error while writing user: $e");});
-                } catch(e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Registration Failed'), backgroundColor: Colors.red),
-                  );
+              if (_formKey.currentState!.validate() && studentId != null) {
+                _formKey.currentState!.save();
+                var quarter = subjects['quarter'];
+                subjects.remove('quarter');
+                var out_of = subjects['out_of'];
+                subjects.remove('out_of');
+                for (var k in subjects.keys) {
+                  subjects[k] = "${subjects[k]}/$out_of";
                 }
+                FirebaseFirestore.instance.collection('result').add({'subjects':subjects,'studentId':studentId,'quarter':quarter,'grade': grade ,'fullName': studentName}).then((snapshot) => {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Result submitted'), backgroundColor: Colors.green),
+                  ),
+
+                });
+                _formKey.currentState?.reset();
+
+
+                // db.collection('result').add({subjects: subjects, studentId: stdId, quarter: quarter, grade,fullName: selected_student_name})
+                //     .then(snapshot => {
+                // selected_student_name = null;
+                // alert("result has been submited.")
+                // })
+                //
+                // try {
+                //
+                //   FirebaseFirestore.instance.collection('result').add(formData)
+                //       .then((doc) {
+                //     FirebaseFirestore.instance.collection('teacher').doc(doc.id).update({'teacherId': doc.id});
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(content: Text('Registration successful'), backgroundColor: Colors.green),
+                //     );
+                //     Navigator.pop(context);
+                //   }).onError((e, _) {print("Error while writing user: $e");});
+                // } catch(e) {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(content: Text('Registration Failed'), backgroundColor: Colors.red),
+                //   );
+                // }
 
               }
             }, child: Text('Submit Result')))

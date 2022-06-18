@@ -7,6 +7,8 @@ import '../common/searchpage.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:school/page/auth.dart';
+import 'package:uuid/uuid.dart';
+
 
 import 'dart:convert';
 
@@ -23,8 +25,7 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
   String studentName = '';
   var sender;
 
-  var _teacher = types.User(id: 'teacher');
-  var _parent = types.User(id: 'parent');
+  var _user = types.User(id: 'teacher');
 
   @override
   void initState()  {
@@ -38,7 +39,7 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
   List<types.Message> _messages = [];
   @override
   Widget build(BuildContext context) {
-
+    print("parent build is rendering: $_messages");
     return Scaffold(
       appBar: AppBar(title: Text(studentName), actions: [IconButton(onPressed: () async{
 
@@ -50,26 +51,26 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
                           studentName = student['fullName'];
                           // studentGrade = student['grade'];
                         });
-                         FirebaseFirestore.instance.collection('feedback').where('studentId', isEqualTo: studentId).get()
+                         FirebaseFirestore.instance.collection('feedback').where('studentId', isEqualTo: studentId).orderBy('timestamp').get()
                           .then((value) {
                             print("response from firebase");
                            final new_msg =  value.docs.map((chat_msg) {
                               print("chat message from server: ${chat_msg.data()['message']}");
-                              var user;
-                              if (chat_msg['sender'] == sender['firstName']) {
-                                user = _teacher;
-                              }else {
-                                user = _parent;
-                              }
+                              // var user;
+                              // if (chat_msg['sender'] == sender['firstName']) {
+                              //   user = _teacher;
+                              // }else {
+                              //   user = _parent;
+                              // }
                               return types.TextMessage(
-                                author: user,
-                                id: chat_msg.data()['studentId'] as String,
+                                author: _user,
+                                id: chat_msg.data()['sender'] as String,
                                 text: chat_msg.data()['message'] as String,
                               );
                               return chat_msg.data()['message'];
                             }).toList();
                             setState(() {
-                              _messages = [...new_msg];
+                              _messages = [...new List.from(new_msg.reversed)];
                             });
                          });
 
@@ -77,25 +78,25 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
       body: Chat(
           messages: _messages,
           onSendPressed: (types.PartialText msg) {
-            final textMsg = types.TextMessage(
-              author: _teacher,
-              createdAt: DateTime.now().millisecond,
-              id: studentId,
+            final message = types.TextMessage(
+              author: _user,
+              createdAt: DateTime.now().millisecondsSinceEpoch,
+              id: const Uuid().v4(),
               text: msg.text
             );
             setState(() {
-              _messages.insert(0, textMsg);
+              _messages.insert(0, message);
             });
             FirebaseFirestore.instance.collection('feedback').add({
               'message': msg.text,
               'sender': sender['firstName'],
               'studentId': studentId,
-              'timestamp': DateTime.now()
+              'timestamp': DateTime.now().millisecondsSinceEpoch
             }).then((res) {
               print("successfuly writen: $res");
             });
           },
-          user: _teacher,
+          user: _user,
           theme: DefaultChatTheme(
             inputBackgroundColor: Colors.cyan
           ),

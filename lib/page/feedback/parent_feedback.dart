@@ -16,13 +16,12 @@ class ParentFeedback extends StatefulWidget {
 class _ParentFeedbackState extends State<ParentFeedback> {
 
   var sender;
-  var _teacher = types.User(id: 'teacher');
-  var _parent = types.User(id: 'parent');
-  var user;
+  final _user = const types.User(id: 'parent');
   List<types.Message> _messages = [];
 
   @override
   void initState()  {
+
     super.initState();
     CustomAuth.storage.read(key: 'parent').then((res) {
       print("currently..........: $res");
@@ -30,25 +29,27 @@ class _ParentFeedbackState extends State<ParentFeedback> {
 
       print("currently logged in user childOne: ${sender['childOne']}");
       FirebaseFirestore.instance.collection('feedback').where(
-          'studentId', isEqualTo: sender['childOne']).get()
+          'studentId', isEqualTo: sender['childOne']).orderBy('timestamp').get()
           .then((value) {
         print("response from firebase");
         final new_msg = value.docs.map((chat_msg) {
           print("chat message from server: ${chat_msg.data()['message']}");
 
-          if (chat_msg['sender'] == sender['firstName']) {
-            user = _parent;
-          } else {
-            user = _teacher;
-          }
+          // if (chat_msg['sender'] == sender['firstName']) {
+          //   print('chat msg sender: $chat_msg');
+          //   user = _parent;
+          // } else {
+          //   user = _teacher;
+          // }
           return types.TextMessage(
-            author: user,
+            author: _user,
             id: chat_msg.data()['studentId'] as String,
             text: chat_msg.data()['message'] as String,
           );
           return chat_msg.data()['message'];
         }).toList();
         setState(() {
+          // _messages = [...new_msg];
           _messages = [...new_msg];
         });
       });
@@ -60,12 +61,30 @@ class _ParentFeedbackState extends State<ParentFeedback> {
 
   @override
   Widget build(BuildContext context) {
-
+    print("parent value: $_user and _messages: $_messages");
     return Scaffold(
       body: Chat(
         messages: _messages,
-        onSendPressed: (types.PartialText msg) {},
-        user: _parent,
+        onSendPressed: (types.PartialText msg) {
+          final message = types.TextMessage(
+              author: _user,
+              createdAt: DateTime.now().millisecondsSinceEpoch,
+              id: sender['childOne'],
+              text: msg.text
+          );
+          setState(() {
+            _messages.insert(0, message);
+          });
+          FirebaseFirestore.instance.collection('feedback').add({
+            'message': msg.text,
+            'sender': sender['firstName'],
+            'studentId': sender['childOne'],
+            'timestamp': DateTime.now().millisecondsSinceEpoch
+          }).then((res) {
+            print("successfuly writen: $res");
+          });
+        },
+        user: _user,
         theme: DefaultChatTheme(
             inputBackgroundColor: Colors.cyan
         ),

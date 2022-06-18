@@ -37,7 +37,8 @@ class _SearchPageState extends State<SearchPage> {
             onTap: () {
               var studentName  = snapshotData.docs[index].data()['fullName'];
               var studentId = snapshotData.docs[index].data()['studentId'];
-              Navigator.pop(context, {'fullName': studentName, 'childOne': studentId});
+              var grade = snapshotData.docs[index].data()['grade'];
+              Navigator.pop(context, {'fullName': studentName, 'childOne': studentId, 'grade': grade});
             },
           );
         },

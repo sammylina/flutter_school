@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:school/page/feedback/parent_feedback.dart';
+import 'package:school/page/result/resultForParent.dart';
 
 import 'common/NavBar.dart';
 import 'common/announcement.dart';
@@ -38,7 +39,7 @@ class _ParentState extends State<Parent> {
             children: [
               Center(child: Announcement(),),
               Center(child: ParentFeedback(),),
-              Center(child: Text("Result"),)
+              Center(child: ParentResultDispaly(),)
             ],
           ),
         ),

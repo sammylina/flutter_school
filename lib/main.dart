@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         '/parent': (context) => Parent(),
       },
       home: Scaffold(
-				body: Teacher(),
+				body: Login(),
       ),
     );
   }

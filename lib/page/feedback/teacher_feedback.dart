@@ -26,6 +26,7 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
   var sender;
 
   var _user = types.User(id: 'teacher');
+  final _other = types.User(id: 'other');
 
   @override
   void initState()  {
@@ -56,14 +57,14 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
                             print("response from firebase");
                            final new_msg =  value.docs.map((chat_msg) {
                               print("chat message from server: ${chat_msg.data()['message']}");
-                              // var user;
-                              // if (chat_msg['sender'] == sender['firstName']) {
-                              //   user = _teacher;
-                              // }else {
-                              //   user = _parent;
-                              // }
+                              var user;
+                              if (chat_msg['sender'] == sender['firstName']) {
+                                user = _user;
+                              }else {
+                                user = _other;
+                              }
                               return types.TextMessage(
-                                author: _user,
+                                author: user,
                                 id: chat_msg.data()['sender'] as String,
                                 text: chat_msg.data()['message'] as String,
                               );

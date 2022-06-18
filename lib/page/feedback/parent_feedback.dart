@@ -17,7 +17,9 @@ class _ParentFeedbackState extends State<ParentFeedback> {
 
   var sender;
   final _user = const types.User(id: 'parent');
+  final _other = const types.User(id: 'teacher');
   List<types.Message> _messages = [];
+
 
   @override
   void initState()  {
@@ -34,15 +36,15 @@ class _ParentFeedbackState extends State<ParentFeedback> {
         print("response from firebase");
         final new_msg = value.docs.map((chat_msg) {
           print("chat message from server: ${chat_msg.data()['message']}");
-
-          // if (chat_msg['sender'] == sender['firstName']) {
-          //   print('chat msg sender: $chat_msg');
-          //   user = _parent;
-          // } else {
-          //   user = _teacher;
-          // }
+          var user;
+          if (chat_msg['sender'] == sender['firstName']) {
+            print('chat msg sender: $chat_msg');
+            user = _user;
+          } else {
+            user = _other;
+          }
           return types.TextMessage(
-            author: _user,
+            author: user,
             id: chat_msg.data()['studentId'] as String,
             text: chat_msg.data()['message'] as String,
           );
@@ -50,7 +52,7 @@ class _ParentFeedbackState extends State<ParentFeedback> {
         }).toList();
         setState(() {
           // _messages = [...new_msg];
-          _messages = [...new_msg];
+          _messages = [...new List.from(new_msg.reversed)];
         });
       });
     }).catchError((err) {

@@ -140,7 +140,6 @@ class _LoginState extends State<Login> {
 			  			// Email Login
 			  			TextField(
 			  				controller: email_controller,
-			  				autofocus: true,
 			  				decoration: InputDecoration(
 			  					labelText: 'Email',	
 			  					prefixIcon: Icon(Icons.email),

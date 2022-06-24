@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:school/page/result/for_upto_10.dart';
 import 'package:school/page/result/for_upto_6.dart';
 import 'package:school/page/result/natural_science.dart';
+import 'package:school/page/result/resultForTeacher.dart';
 
 import 'package:school/page/result/social_science.dart';
 
@@ -52,7 +53,11 @@ class _ResultState extends State<Result> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const SocialScience()));
               }, child: Text('For grade 11 and 12 social science')),
-
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const TeacherResult()));
+              }, child: Text('see Result')),
             ]
         )
     );

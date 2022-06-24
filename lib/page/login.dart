@@ -35,15 +35,15 @@ class _LoginState extends State<Login> {
 				);
 				user = cred.user;
 				if (user != null) {
-					print("route to value: $routeTo");
-					print("user found: $user");
+					// print("route to value: $routeTo");
+					// print("user found: $user");
 					var loggedUser;
 					FirebaseFirestore.instance.collection(selectedUserType).where('email', isEqualTo: user.email).snapshots()
 						.forEach((user) {
 							if(user == null) return;
 							loggedUser = user.docs.map((e) => e.data()).toList()[0];
 							CustomAuth.storage.write(key: selectedUserType, value: json.encode(loggedUser));
-
+							print("logged in user data: $loggedUser");
 					});
 
 

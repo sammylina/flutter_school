@@ -42,7 +42,7 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
   Widget build(BuildContext context) {
     print("parent build is rendering: $_messages");
     return Scaffold(
-      appBar: AppBar(title: Text(studentName), actions: [IconButton(onPressed: () async{
+      appBar: AppBar(title: Text(studentName), automaticallyImplyLeading: false, actions: [IconButton(onPressed: () async{
 
         var student =   await Navigator.push(context,
                             MaterialPageRoute(builder: (context) => const SearchPage()));

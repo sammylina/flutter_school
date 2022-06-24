@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:school/page/feedback/teacher_feedback.dart';
 import 'package:school/page/result/result.dart';
 import 'package:school/page/result/resultForTeacher.dart';
+import 'package:school/page/auth.dart';
+import 'dart:convert';
 
 import 'common/NavBar.dart';
 import 'common/announcement.dart';
@@ -16,8 +18,11 @@ class Teacher extends StatefulWidget {
 }
 
 class _TeacherState extends State<Teacher> {
+
+
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(

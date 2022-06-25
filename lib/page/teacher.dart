@@ -26,7 +26,7 @@ class _TeacherState extends State<Teacher> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        drawer: NavBar(),
+        drawer: NavBar(usertype: 'teacher'),
         appBar: AppBar(
           title: Text("Teacher"),
           bottom: TabBar(

@@ -39,7 +39,9 @@ class _TeacherResultState extends State<TeacherResult> {
     CustomAuth.storage.read(key: 'teacher').then((res) {
       print("currently..........: $res");
       var stdGrade  =  json.decode(res!)['grade'];
-      student_grade = stdGrade;
+      setState(() {
+        student_grade = stdGrade;
+      });
       getResult(stdGrade);
     });
   }

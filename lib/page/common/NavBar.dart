@@ -7,17 +7,32 @@ import 'dart:convert';
 
 
 class NavBar extends StatefulWidget {
+  final usertype;
 
-  const NavBar({Key? key}) : super(key: key);
-
+  const NavBar({Key? key, required this.usertype}) : super(key: key);
 
   @override
-  _NavBarState createState() => _NavBarState();
+  _NavBarState createState() => _NavBarState(usertype);
 }
 
 class _NavBarState extends State<NavBar> {
 
-
+  _NavBarState(this.usertype);
+  var userName;
+  var email;
+  var usertype;
+  @override
+  void initState() {
+    super.initState();
+    print("usertype in current situation: $usertype");
+    CustomAuth.storage.read(key: usertype).then((res) {
+      var user = json.decode(res!);
+      setState(() {
+        userName = user['fullName'];
+        email = user['email'];
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +41,8 @@ class _NavBarState extends State<NavBar> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(accountName: Text("username"),
-            accountEmail: Text("email"),
+          UserAccountsDrawerHeader(accountName: Text("${userName}"),
+            accountEmail: Text("${email}"),
             currentAccountPicture:CircleAvatar(
               child: ClipOval(
                 child: Image.network("https://oflutter.com/wp-content/uploads/2021/02/girl-profile.png",
@@ -38,7 +53,7 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.cyan,
               image: DecorationImage(
                   fit: BoxFit.fill,
                   image: AssetImage("img/12.jpg"),
@@ -55,7 +70,17 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             leading: Icon(Icons.password  ),
             title: Text('Change Password'),
-            onTap: () => null,
+            onTap: () {
+              FirebaseAuth.instance.sendPasswordResetEmail(email: email)
+                .then((value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("check your email to reset password"), backgroundColor: Colors.lightBlueAccent),
+                );
+                Navigator.pop(context);
+              } );
+
+
+            },
           ),
           ListTile(
             leading: Icon(Icons.notifications),
@@ -83,9 +108,9 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             title: Text('Logout'),
             leading: Icon(Icons.exit_to_app),
-            onTap: () =>  {
-               FirebaseAuth.instance.signOut(),
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)
+            onTap: ()  {
+               FirebaseAuth.instance.signOut();
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
             },
           ),
         ],

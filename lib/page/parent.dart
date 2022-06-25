@@ -19,7 +19,7 @@ class _ParentState extends State<Parent> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        drawer: NavBar(),
+        drawer: NavBar(usertype: 'parent'),
         appBar: AppBar(
           title: Text("Parent"),
           bottom: TabBar(

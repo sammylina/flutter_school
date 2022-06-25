@@ -17,7 +17,7 @@ class _EncoderState extends State<Encoder> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        drawer: NavBar(),
+        drawer: NavBar(usertype: 'dataEncoder'),
         appBar: AppBar(
             title: Text("Data Encoder"),
             bottom: TabBar(

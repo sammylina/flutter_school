@@ -17,7 +17,7 @@ class _Admin_pageState extends State<AdminPage> {
 
     length: 3,
     child: Scaffold(
-      drawer: NavBar(),
+      drawer: NavBar(usertype: 'admin'),
       appBar: AppBar(
         title: !isSearching ? Text("admin"): TextField(
           style: TextStyle(

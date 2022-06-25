@@ -31,7 +31,7 @@ class _TeacherState extends State<Teacher> {
           title: Text("Teacher"),
           bottom: TabBar(
             tabs: [
-              Tab(text: "Result",icon: Icon(Icons.notifications),), Tab(text: "Announcement",icon: Icon(Icons.notifications)), Tab(text: "Feedback",icon: Icon(Icons.notifications)),
+              Tab(text: "Result",icon: Icon(Icons.school_outlined),), Tab(text: "Announcement",icon: Icon(Icons.notifications_active_outlined)), Tab(text: "Feedback",icon: Icon(Icons.message_outlined)),
             ],
           ),
         ),

@@ -23,6 +23,7 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
 
   String studentId = '';
   String studentName = '';
+  String studentGrade = '';
   var sender;
 
   var _user = types.User(id: 'teacher');
@@ -46,35 +47,43 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
 
         var student =   await Navigator.push(context,
                             MaterialPageRoute(builder: (context) => const SearchPage()));
-                        studentId = student['childOne'];
-                        print("selected std: $student");
-                        setState(() {
-                          studentName = student['fullName'];
-                          // studentGrade = student['grade'];
-                        });
-                         FirebaseFirestore.instance.collection('feedback').where('studentId', isEqualTo: studentId).orderBy('timestamp').get()
-                          .then((value) {
-                            print("response from firebase");
-                           final new_msg =  value.docs.map((chat_msg) {
-                              print("chat message from server: ${chat_msg.data()['message']}");
-                              var user;
-                              if (chat_msg['sender'] == sender['firstName']) {
-                                user = _user;
-                              }else {
-                                user = _other;
-                              }
-                              return types.TextMessage(
-                                author: user,
-                                id: chat_msg.data()['sender'] as String,
-                                text: chat_msg.data()['message'] as String,
-                              );
-                              return chat_msg.data()['message'];
-                            }).toList();
-                            setState(() {
-                              _messages = [...new List.from(new_msg.reversed)];
-                            });
-                         });
-
+                print("grades: ${student['grade']}, teacher: ${sender['grade']}");
+                studentGrade = student['grade'];
+                studentId = '';
+                studentName = '';
+                if (student['grade'] == sender['grade']) {
+                  studentId = student['childOne'];
+                  print("selected std: $student");
+                  setState(() {
+                    studentName = student['fullName'];
+                    // studentGrade = student['grade'];
+                  });
+                  FirebaseFirestore.instance.collection('feedback').where(
+                      'studentId', isEqualTo: studentId).orderBy('timestamp')
+                      .get()
+                      .then((value) {
+                    print("response from firebase");
+                    final new_msg = value.docs.map((chat_msg) {
+                      print("chat message from server: ${chat_msg
+                          .data()['message']}");
+                      var user;
+                      if (chat_msg['sender'] == sender['firstName']) {
+                        user = _user;
+                      } else {
+                        user = _other;
+                      }
+                      return types.TextMessage(
+                        author: user,
+                        id: chat_msg.data()['sender'] as String,
+                        text: chat_msg.data()['message'] as String,
+                      );
+                      return chat_msg.data()['message'];
+                    }).toList();
+                    setState(() {
+                      _messages = [...new List.from(new_msg.reversed)];
+                    });
+                  });
+                }
       }, icon: Icon(Icons.person_add))]),
       body: Chat(
           messages: _messages,
@@ -85,17 +94,19 @@ class _TeacherFeedbackState extends State<TeacherFeedback> {
               id: const Uuid().v4(),
               text: msg.text
             );
-            setState(() {
-              _messages.insert(0, message);
-            });
-            FirebaseFirestore.instance.collection('feedback').add({
-              'message': msg.text,
-              'sender': sender['firstName'],
-              'studentId': studentId,
-              'timestamp': DateTime.now().millisecondsSinceEpoch
-            }).then((res) {
-              print("successfuly writen: $res");
-            });
+            if (studentGrade == sender['grade']) {
+              setState(() {
+                _messages.insert(0, message);
+              });
+              FirebaseFirestore.instance.collection('feedback').add({
+                'message': msg.text,
+                'sender': sender['firstName'],
+                'studentId': studentId,
+                'timestamp': DateTime.now().millisecondsSinceEpoch
+              }).then((res) {
+                print("successfuly writen: $res");
+              });
+            }
           },
           user: _user,
           theme: DefaultChatTheme(

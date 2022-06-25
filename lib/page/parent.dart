@@ -24,7 +24,7 @@ class _ParentState extends State<Parent> {
           title: Text("Parent"),
           bottom: TabBar(
             tabs: [
-              Tab(text: "Announcement",icon: Icon(Icons.notifications),), Tab(text: "Feedback",icon: Icon(Icons.notifications)), Tab(text: "Result",icon: Icon(Icons.notifications)),
+              Tab(text: "Announcement",icon: Icon(Icons.notifications_active_outlined),), Tab(text: "Feedback",icon: Icon(Icons.message_outlined)), Tab(text: "Result",icon: Icon(Icons.school_outlined)),
             ],
           ),
         ),
